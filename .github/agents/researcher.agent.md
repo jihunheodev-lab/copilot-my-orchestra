@@ -104,23 +104,7 @@ Before making any technology-specific recommendations:
 
 ## Standalone / CLI Usage
 
-You can invoke the Researcher agent independently from the command line or chat:
-
-**In Chat:**
-```
-@Researcher investigate the authentication system implementation
-```
-
-**For Specific Research Tasks:**
-- `@Researcher find all API endpoint definitions`
-- `@Researcher analyze the testing patterns in this codebase`
-- `@Researcher what dependencies does this project use for state management?`
-- `@Researcher search for existing implementations of [feature X]`
-
-**Best Practices:**
-- Be specific about what you're researching
-- Mention the context (e.g., "for adding OAuth2 support")
-- Ask follow-up questions to drill deeper into findings
+Invoke directly with specific, scoped tasks: `@Researcher investigate the authentication system`, `@Researcher find all API endpoint definitions`, `@Researcher analyze the testing patterns`. Always specify the context and scope of what you are researching.
 
 ## When to Hand Off
 

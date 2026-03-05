@@ -93,7 +93,7 @@ Last Updated: YYYY-MM-DD
 [How to confirm the fix is correct]
 ```
 
-**In both cases**, save the result to `plans/<task-name>-plan.md` using the full format for Planner output:
+**In both cases**, save the result to `plans/<task-name>-plan.md`. When using Planner, the file should use this format:
 
 ```markdown
 ---

@@ -128,7 +128,7 @@ Support **multiple review cycles** with progressive refinement:
 
 **Handoff Decision Tree**:
 - If **changes required**: Report specific action items to the Orchestrator for re-delegation to Implementer
-- If **approved**: Update `Approval Status: approved` in `plans/<task-name>-plan.md` if the file exists, then report completion to the Orchestrator
+- If **approved**: Report completion to the Orchestrator
 
 ## Key Principles
 

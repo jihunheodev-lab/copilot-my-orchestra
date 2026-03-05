@@ -77,14 +77,6 @@ Before coding, inspect the project root for config and manifest files to identif
 - **Resource cleanup**: Close files, connections, and handles properly
 - **Documentation**: Add comments for non-obvious logic; explain "why", not "what"
 
-### Testing Requirements
-
-- Write tests that cover:
-  - **Happy path**: Normal expected usage
-  - **Edge cases**: Boundary conditions and limits
-  - **Error conditions**: Invalid inputs and failure scenarios
-  - **Integration points**: Interactions with external dependencies
-
 ## Handoff
 
 After completing implementation:
