@@ -1,0 +1,4 @@
+mcp-servers: 0
+^\s*model\s*:: 0
+disable-model-invocation: 0
+No forbidden elements found
