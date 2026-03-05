@@ -4,6 +4,7 @@ description: Investigates the codebase, documentation, and external resources to
 tools: ['search', 'search/codebase', 'search/usages', 'read', 'read/problems', 'fetch', 'web', 'web/fetch', 'web/githubRepo']
 agents: []
 user-invocable: false
+model: Gemini 3.1 Pro (Preview)
 ---
 
 # Researcher Agent

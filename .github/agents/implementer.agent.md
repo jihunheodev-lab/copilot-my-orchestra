@@ -12,6 +12,7 @@ tools:
   - fetch
 agents: []
 user-invocable: false
+model: GPT-5.3-Codex (copilot)
 ---
 
 # Implementer Agent

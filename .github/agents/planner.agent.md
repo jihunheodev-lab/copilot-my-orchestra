@@ -10,6 +10,7 @@ tools:
   - fetch
 agents: []
 user-invocable: false
+model: GPT-5.2 (copilot)
 ---
 
 # Planner Agent - System Instructions

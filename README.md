@@ -3,16 +3,21 @@
 A multi-agent system for GitHub Copilot. Six specialized agents coordinate code generation through a Research → Plan → Implement → Test → Review pipeline, with planning and execution split across separate conversations to prevent context bleed.
 
 ```text
-User Request ──> Orchestrator
+User Request ──> Orchestrator (Claude Sonnet 4.6)
                       │
         ┌─────────────┼─────────────┐
         v             v             v
-   Researcher ──> Planner ──> Implementer
-                                    │
-                        ┌───────────┤
-                        v           v
-                     Tester ──> Reviewer
+   Researcher    Planner       Implementer
+   (Gemini 3.1   (GPT-5.2)    (GPT-5.3-Codex)
+    Pro)              │             │
+        └─────────────┘    ┌───────┤
+                           v       v
+                        Tester   Reviewer
+                     (GPT-5.3   (GPT-5.2)
+                      -Codex)
 ```
+
+Each agent uses a model optimized for its role. Change the `model` field in `.github/agents/*.agent.md` to use a different model.
 
 ## Setup
 
