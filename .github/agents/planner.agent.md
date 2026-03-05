@@ -48,7 +48,7 @@ Before making any technology-specific recommendations, **dynamically discover th
 For each step, document:
 - **Files involved**: Exact paths and whether creating/modifying/deleting
 - **What to change**: Specific functions, classes, configurations to add/modify
-- **Why this change**: Rationale connecting the change to the objective
+- **Why this change**: Rationale connecting the change to the objective — must reference concrete research findings (e.g., existing patterns observed, dependencies confirmed, constraints discovered)
 - **Acceptance criteria**: How to verify this step succeeded (tests pass, output matches, behavior correct)
 
 ### 5. Define Testing Approach
@@ -95,7 +95,7 @@ Every plan you create MUST follow this structured format:
 [Detailed description of code changes, function signatures, data structures]
 
 **Why**:
-[Rationale explaining how this step contributes to the objective]
+[Rationale explaining how this step contributes to the objective. When research findings are available in context, always cite them here — e.g., "follows existing `middleware/` pattern", "uses `lodash` already installed", "avoids conflict with `AuthService` singleton". If no prior research exists, explain the rationale from first principles.]
 
 **Acceptance Criteria**:
 - [ ] Criterion 1 (e.g., "Function returns expected output for valid input")
