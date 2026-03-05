@@ -6,8 +6,8 @@ A sophisticated multi-agent system for GitHub Copilot, providing specialized age
 
 - **Specialized Roles**: Six distinct agents covering the full development lifecycle from research to review.
 - **Dynamic Technology Discovery**: Agents analyze project metadata (package.json, pyproject.toml, etc.) to adapt to any tech stack.
-- **Pipeline Orchestration**: Built-in support for Research -> Plan -> Implement -> Test -> Review workflows.
-- **Autonomous & Guided Modes**: Supports both automated subagent delegation and user-controlled handoff workflows.
+- **Pipeline Orchestration**: Built-in support for Research -> Plan -> Implement -> Test -> Review workflows with a mandatory approval gate.
+- **Single Entry Point**: All tasks start with `@Orchestrator` — no manual agent switching required.
 - **VS Code Native Integration**: Optimized for the latest GitHub Copilot agent capabilities.
 
 ## Architecture
@@ -43,14 +43,16 @@ A sophisticated multi-agent system for GitHub Copilot, providing specialized age
 ### In VS Code
 1. Open the GitHub Copilot Chat.
 2. Type `@Orchestrator` followed by your request (e.g., `@Orchestrator implement a new authentication middleware`).
-3. Follow the guided handoffs or let it run autonomously if enabled.
+3. Review the generated plan and confirm before implementation begins.
+4. The Orchestrator runs the pipeline autonomously after your approval.
 
 ### In CLI (Standalone)
 If subagent invocation is not supported in your environment, follow this manual sequence:
 1. Run `@Researcher` to gather context.
 2. Pass research findings to `@Planner` for an execution plan.
-3. Use `@Implementer` to apply the plan.
-4. Verify with `@Tester` and `@Reviewer`.
+3. Review the plan and confirm before proceeding.
+4. Use `@Implementer` to apply the plan.
+5. Verify with `@Tester` and `@Reviewer`.
 
 ## Agent Catalog
 
@@ -65,21 +67,22 @@ If subagent invocation is not supported in your environment, follow this manual 
 
 ## Compatibility Matrix
 
-| Environment | Orchestrator (@) | Subagent Delegation | Handoff Buttons |
-|-------------|-------------------|---------------------|-----------------|
-| VS Code Insiders | Supported | Supported | Supported |
-| VS Code Stable | Supported | Partial | Supported |
-| GitHub.com | Supported | Not Supported | Not Supported |
-| Copilot CLI | Supported | Not Supported | Not Supported |
+| Environment | Orchestrator (@) | Subagent Delegation |
+|-------------|-------------------|---------------------|
+| VS Code Insiders | Supported | Supported |
+| VS Code Stable | Supported | Partial |
+| GitHub.com | Supported | Not Supported |
+| Copilot CLI | Supported | Not Supported |
 
 ## Pipeline Workflow
 
-The system defaults to a five-stage pipeline:
+The system defaults to a six-stage pipeline:
 1. **Research**: Analysis of the existing implementation and dependencies.
 2. **Plan**: Technical specification and step-by-step task breakdown.
-3. **Implement**: Execution of the code changes in small, atomic steps.
-4. **Test**: Verification via unit, integration, or regression tests.
-5. **Review**: Final check for performance, security, and project conventions.
+3. **Approval**: User reviews the plan and confirms before any code is written.
+4. **Implement**: Execution of the code changes in small, atomic steps.
+5. **Test**: Verification via unit, integration, or regression tests.
+6. **Review**: Final check for performance, security, and project conventions.
 
 ## Customization
 

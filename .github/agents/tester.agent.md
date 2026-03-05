@@ -10,11 +10,6 @@ tools:
   - read/terminalLastCommand
   - execute
 agents: []
-handoffs:
-  - label: Review Changes
-    agent: Reviewer
-    prompt: Review the implemented changes and test results for quality and correctness.
-    send: false
 ---
 
 # Tester Agent

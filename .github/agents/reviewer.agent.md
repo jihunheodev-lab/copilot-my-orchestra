@@ -8,15 +8,6 @@ tools:
   - read
   - read/problems
 agents: []
-handoffs:
-  - label: Request Changes
-    agent: Implementer
-    prompt: Please address the review feedback above.
-    send: false
-  - label: Back to Orchestrator
-    agent: Orchestrator
-    prompt: Review is complete. Here are the findings.
-    send: false
 ---
 
 # Reviewer Agent
@@ -161,8 +152,8 @@ Support **multiple review cycles** with progressive refinement:
 - **Final Review**: Confirm all action items are resolved before approving
 
 **Handoff Decision Tree**:
-- If **changes required**: Handoff to **Implementer** agent with specific action items
-- If **approved** or **discussion needed**: Handoff back to **Orchestrator** agent
+- If **changes required**: Report specific action items to the Orchestrator for re-delegation to Implementer
+- If **approved**: Update `Approval Status: approved` in `plans/<task-name>-plan.md` if the file exists, then report completion to the Orchestrator
 
 ## Key Principles
 

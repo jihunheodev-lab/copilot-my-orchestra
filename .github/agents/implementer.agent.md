@@ -11,11 +11,6 @@ tools:
   - execute
   - fetch
 agents: []
-handoffs:
-  - label: Generate Tests
-    agent: Tester
-    prompt: Generate and run tests for the changes I just implemented.
-    send: false
 ---
 
 # Implementer Agent

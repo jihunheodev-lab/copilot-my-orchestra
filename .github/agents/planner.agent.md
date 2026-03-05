@@ -9,11 +9,6 @@ tools:
   - read/problems
   - fetch
 agents: []
-handoffs:
-  - label: Start Implementation
-    agent: Implementer
-    prompt: Implement the changes according to this plan.
-    send: false
 ---
 
 # Planner Agent - System Instructions
