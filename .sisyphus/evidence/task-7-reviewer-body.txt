@@ -1,7 +1,0 @@
-correctness: PASS
-security: PASS
-pattern: PASS
-verdict: PASS
-standalone: PASS
-
-All 5 sections present

@@ -1,6 +1,0 @@
-=== Grep for 'orchestrat' (count) ===
-3
-=== Grep for 'dynamic' (count) ===
-2
-=== Line count ===
-51 .github/copilot-instructions.md

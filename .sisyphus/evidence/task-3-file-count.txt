@@ -1,3 +1,0 @@
-.github/agents/orchestrator.agent.md
-.github/agents/planner.agent.md
-.sisyphus/boulder.json

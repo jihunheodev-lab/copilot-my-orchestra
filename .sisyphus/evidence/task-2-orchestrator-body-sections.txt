@@ -1,6 +1,0 @@
-intent/classify: True
-subagent/autonomous: True
-handoff/button: True
-CLI/standalone: True
-package.json/requirements.txt/discovery: True
-All 5 content sections present
