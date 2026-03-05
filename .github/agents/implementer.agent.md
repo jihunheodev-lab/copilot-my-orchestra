@@ -11,6 +11,7 @@ tools:
   - execute
   - fetch
 agents: []
+user-invocable: false
 ---
 
 # Implementer Agent

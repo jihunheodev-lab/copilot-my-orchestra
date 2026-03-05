@@ -10,6 +10,7 @@ tools:
   - read/terminalLastCommand
   - execute
 agents: []
+user-invocable: false
 ---
 
 # Tester Agent

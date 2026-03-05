@@ -8,6 +8,7 @@ tools:
   - read
   - read/problems
 agents: []
+user-invocable: false
 ---
 
 # Reviewer Agent

@@ -3,6 +3,7 @@ name: Researcher
 description: Investigates the codebase, documentation, and external resources to gather context for development tasks. Read-only — never modifies files.
 tools: ['search', 'search/codebase', 'search/usages', 'read', 'read/problems', 'fetch', 'web', 'web/fetch', 'web/githubRepo']
 agents: []
+user-invocable: false
 ---
 
 # Researcher Agent

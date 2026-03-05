@@ -9,6 +9,7 @@ tools:
   - read/problems
   - fetch
 agents: []
+user-invocable: false
 ---
 
 # Planner Agent - System Instructions
