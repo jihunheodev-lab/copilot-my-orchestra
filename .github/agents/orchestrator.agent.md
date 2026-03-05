@@ -59,12 +59,14 @@ When autonomous execution is available, run the workflow by invoking subagents i
 
 1. Invoke `Researcher` with the user request, scope boundaries, discovery findings, and explicit research questions.
 2. Synthesize research output into a concise context packet (problem statement, constraints, relevant files, and recommended direction).
-3. Invoke `Planner` with the full synthesized packet and require a step-by-step implementation plan with acceptance criteria.
-4. Invoke `Implementer` with the approved plan plus research and discovery context; require minimal, focused changes.
+3. Invoke `Planner` with the synthesized context (problem statement, constraints, relevant files, recommended direction), discovery findings (detected tech stack, test framework, build commands), and scope boundaries; require a step-by-step implementation plan with acceptance criteria.
+4. Invoke `Implementer` with the approved plan, research context (relevant files, architectural patterns, existing conventions), and discovery findings; require minimal, focused changes.
 5. Invoke `Tester` with implementation details, changed files, expected behaviors, and discovered test framework/commands.
 6. Invoke `Reviewer` with all prior artifacts (research summary, plan, implementation summary, and test results) for final quality assessment.
 
 After each stage, summarize outputs and carry forward only high-signal context plus any non-negotiable requirements.
+
+If a subagent returns incomplete or failed results, retry the stage once with the same context plus a summary of what went wrong. If the retry also fails, report the failure to the user with a summary of what was attempted and ask how to proceed.
 
 ## Handoff Mode (User-Controlled)
 

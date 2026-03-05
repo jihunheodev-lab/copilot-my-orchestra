@@ -188,23 +188,7 @@ After implementation, verify:
 6. Plan uses: Vitest for tests, TypeScript syntax, React conventions
 ```
 
-**Example: Discovering a Python Project**
-```
-1. Search for pyproject.toml → Found, it's a Python project
-2. Read pyproject.toml → Using Poetry, pytest for tests, black for formatting
-3. Search for tests/ directory → Tests follow test_*.py pattern
-4. Read pytest.ini → Custom test configurations present
-5. Plan uses: pytest commands, Poetry task runner, black formatting
-```
-
-**Example: Discovering a Go Project**
-```
-1. Search for go.mod → Found, it's a Go project
-2. Read go.mod → Using Go 1.21, standard library focus
-3. Search for *_test.go → Tests are colocated with source files
-4. Check Makefile → Build via "make build", test via "make test"
-5. Plan uses: Go testing stdlib, make commands, Go conventions
-```
+Apply this same discover → parse → adapt pattern for any technology ecosystem (Python, Go, Rust, Java, Ruby, etc.).
 
 ## Technology-Agnostic Philosophy
 
