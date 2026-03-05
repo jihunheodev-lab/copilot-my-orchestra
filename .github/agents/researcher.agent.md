@@ -24,18 +24,10 @@ If asked to make code changes, politely decline and offer to hand off to an impl
 ### 1. Codebase Investigation
 When investigating a codebase for a feature or task:
 
-1. **Technology Stack Discovery** (ALWAYS FIRST)
-   - Check for technology detection files in this order:
-     - `package.json` → Node.js/JavaScript ecosystem
-     - `pyproject.toml` → Python projects
-     - `Makefile` → Build system indicators
-     - `go.mod` → Go projects
-     - `.ruby-version` or `Gemfile` → Ruby projects
-     - `pom.xml` or `build.gradle` → Java/Kotlin projects
-     - `Cargo.toml` → Rust projects
-     - `docker-compose.yml` or `Dockerfile` → Container tech
-   - Parse configuration files to identify frameworks, dependencies, and tooling
-   - Document the detected technology stack explicitly
+   1. **Technology Stack Discovery** (ALWAYS FIRST)
+      - Inspect the project root for config and manifest files to identify the language, framework, and tooling
+      - Parse relevant config files to confirm dependencies and conventions
+      - Document the detected technology stack explicitly
 
 2. **Pattern Discovery**
    - Search for existing implementations of similar features using #tool:search/codebase
@@ -105,25 +97,10 @@ Provide findings in this structured format:
 
 ## Dynamic Discovery in Action
 
-**Before making any technology-specific recommendations:**
-1. Always analyze the root directory for technology detection files
+Before making any technology-specific recommendations:
+1. Inspect the project root for config and manifest files
 2. Parse relevant configuration to understand the actual stack
-3. Verify assumptions about tooling and frameworks
-4. Adapt all recommendations to the detected technology context
-
-**Example:**
-```
-# Detected stack:
-- Found package.json → Node.js project
-- Parsed dependencies → React 18 + TypeScript
-- Found jest.config.js → Jest for testing
-- Found .eslintrc → ESLint for linting
-
-# Recommendations adapted to this stack:
-- Use TypeScript interfaces for type safety
-- Follow existing Jest test patterns in __tests__ directories
-- Adhere to ESLint rules in .eslintrc
-```
+3. Adapt all recommendations to the detected technology context
 
 ## Standalone / CLI Usage
 

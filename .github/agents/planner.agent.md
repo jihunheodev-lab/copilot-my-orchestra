@@ -32,25 +32,10 @@ When creating an implementation plan, follow this systematic approach:
 ### 2. Perform Dynamic Codebase Discovery
 Before making any technology-specific recommendations, **dynamically discover the project context**:
 
-**Technology Stack Detection**:
-- Search for `package.json`, `pyproject.toml`, `go.mod`, `Cargo.toml`, `Gemfile`, `pom.xml`, etc.
-- Identify the primary language, frameworks, and build tools
-- Never assume technology — always verify through file analysis
-
-**Project Structure Analysis**:
-- Identify directory organization patterns (`src/`, `lib/`, `app/`, `components/`)
-- Locate configuration files (`tsconfig.json`, `.eslintrc`, `pytest.ini`)
-- Find existing conventions (naming patterns, file organization)
-
-**Testing Infrastructure**:
-- Identify test frameworks (Jest, pytest, RSpec, Go testing, Cargo test)
-- Locate test directories and naming patterns (`__tests__/`, `*_test.go`, `tests/`)
-- Determine how tests are executed (npm scripts, Makefile, cargo commands)
-
-**Build and Quality Commands**:
-- Find build commands (`npm run build`, `cargo build`, `make`)
-- Identify linting/formatting tools (`eslint`, `black`, `clippy`)
-- Discover CI/CD patterns (`.github/workflows/`, `.gitlab-ci.yml`)
+- **Tech Stack**: Inspect the project root for config and manifest files to identify the language, framework, and build tools. Never assume — always verify through file analysis.
+- **Project Structure**: Identify directory organization, naming patterns, and existing conventions.
+- **Testing Infrastructure**: Find the test framework and execution command from config files and existing test file patterns.
+- **Build & Quality**: Find build, lint, and CI commands from project scripts and workflow files.
 
 ### 3. Break Down into Discrete Steps
 - Decompose the objective into sequential, logical steps
@@ -171,30 +156,9 @@ After implementation, verify:
 [Any additional context, references, or clarifications]
 ```
 
-## Dynamic Discovery in Practice
+## Technology-Agnostic Principle
 
-**Example: Discovering a JavaScript Project**
-```
-1. Search for package.json → Found, it's a Node.js project
-2. Read package.json → Framework is React 18, build tool is Vite
-3. Check package.json scripts → Tests run via "npm test" using Vitest
-4. Search for existing test files → Pattern is *.test.jsx in __tests__/ dirs
-5. Read tsconfig.json → TypeScript is enabled with strict mode
-6. Plan uses: Vitest for tests, TypeScript syntax, React conventions
-```
-
-Apply this same discover → parse → adapt pattern for any technology ecosystem (Python, Go, Rust, Java, Ruby, etc.).
-
-## Technology-Agnostic Philosophy
-
-**Never assume technology.** Every plan begins with discovery:
-- ❌ "Create a React component..." (assumes React)
-- ✅ "After detecting React in package.json, create a component..."
-
-- ❌ "Write a pytest test..." (assumes pytest)
-- ✅ "Using the discovered test framework [pytest], write a test..."
-
-This ensures plans are **accurate to the actual project**, not generic templates.
+**Never assume technology.** Every plan step must reference what was actually discovered from project files, not assumed. Discover first, then plan.
 
 ## CLI Standalone Principle
 

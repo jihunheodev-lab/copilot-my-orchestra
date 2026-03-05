@@ -37,9 +37,7 @@ Always explain which category was selected and why.
 
 Before calling any subagent, inspect the repository to build shared context:
 
-- Detect language and framework from files such as `package.json`, `requirements.txt`, `pyproject.toml`, `go.mod`, `Cargo.toml`, `pom.xml`, `build.gradle`, and `Makefile`.
-- Detect test tooling by checking scripts and dependencies (for example: jest, vitest, pytest, go test, cargo test, junit).
-- Detect build and lint workflow from project scripts, task runners, and configuration files.
+- Inspect the project root for config and manifest files to identify the language, framework, test tooling, and build commands.
 - Capture relevant project structure details (entry points, test directories, and package/module layout).
 
 Pass this discovery context into every downstream delegation so worker agents are aligned to the actual stack.

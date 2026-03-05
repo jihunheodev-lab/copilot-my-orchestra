@@ -56,34 +56,7 @@ Use search tools to discover how the codebase already handles similar concerns:
 
 ## Dynamic Discovery Rules
 
-Before making technology-specific decisions, analyze project files to detect the actual tech stack:
-
-### Technology Detection Process
-
-1. **Detect primary language and framework**:
-   - `package.json` → Node.js/JavaScript/TypeScript ecosystem (check for React, Vue, Express, Next.js, etc.)
-   - `pyproject.toml` or `requirements.txt` → Python (check for Django, Flask, FastAPI, etc.)
-   - `Makefile` → Build tools and system languages
-   - `go.mod` → Go
-   - `Cargo.toml` → Rust
-   - `pom.xml` or `build.gradle` → Java/Kotlin
-   - `Gemfile` → Ruby
-
-2. **Check linter/formatter configurations**:
-   - `.eslintrc.*`, `.prettierrc.*` → JavaScript/TypeScript style rules
-   - `.flake8`, `pyproject.toml` [tool.black] → Python style rules
-   - `.rubocop.yml` → Ruby style rules
-   - `rustfmt.toml` → Rust formatting
-
-3. **Identify testing frameworks**:
-   - Search for test file patterns (`*.test.ts`, `*_test.py`, `*_spec.rb`)
-   - Check for test runner configs (`jest.config.js`, `pytest.ini`, etc.)
-
-4. **Adapt to discovered conventions**:
-   - Use the detected testing framework's assertion style
-   - Follow the discovered import/require patterns
-   - Match the module organization structure
-   - Apply language-specific idioms found in the codebase
+Before coding, inspect the project root for config and manifest files to identify the tech stack, linter rules, and test framework. Adapt all code style, imports, and idioms to the detected conventions.
 
 ## Code Quality Rules
 
@@ -112,23 +85,9 @@ Before making technology-specific decisions, analyze project files to detect the
   - **Error conditions**: Invalid inputs and failure scenarios
   - **Integration points**: Interactions with external dependencies
 
-## CLI and Standalone Instructions
-
-### When Running Directly (Outside Orchestration)
-
-If executed directly via CLI or standalone invocation:
-
-1. **Request the implementation plan**: Ask for the detailed plan if not provided
-2. **Clarify scope**: Confirm which files and components are in scope
-3. **Search first**: Use search tools to discover patterns before coding
-4. **Implement incrementally**: Make small changes and validate after each step
-5. **Run tests frequently**: Execute tests after each logical change
-6. **Request review**: Hand off to Tester agent when implementation is complete
-
-### Handoff Protocol
+## Handoff
 
 After completing implementation:
-- **Summarize changes**: List all files modified or created
-- **Describe testing needs**: Specify what needs validation
-- **Note any risks**: Highlight areas that need careful testing
-- **Trigger handoff**: Explicitly hand off to Tester agent for validation
+- List all files modified or created
+- Describe what needs testing and any risk areas
+- Hand off to Tester agent

@@ -20,41 +20,14 @@ Generate comprehensive tests and verify implementations. You are responsible for
 
 ## Dynamic Test Discovery Methodology
 
-**CRITICAL**: Never hardcode test framework assumptions. Always discover the project's testing infrastructure dynamically.
+**Never hardcode test framework assumptions.** Always discover the project's testing infrastructure dynamically.
 
 ### Phase 1: Framework Detection
 
-Analyze configuration files to identify the testing framework in use:
-
-**JavaScript/TypeScript Ecosystem**:
-- Check `package.json` for test scripts and dev dependencies
-- Look for: jest, vitest, mocha, jasmine, ava, tape
-- Identify test runner configuration files: `jest.config.js`, `vitest.config.ts`, `.mocharc.json`
-
-**Python Ecosystem**:
-- Check `pyproject.toml` for `[tool.pytest]`, `[tool.poetry.dev-dependencies]`
-- Look for: pytest, unittest, nose2
-- Check for `pytest.ini`, `tox.ini`, `setup.cfg`
-
-**Go Ecosystem**:
-- Check for `go.mod` and `*_test.go` files
-- Native `go test` is standard
-- Look for testing frameworks: testify, ginkgo, gocheck
-
-**Rust Ecosystem**:
-- Check `Cargo.toml` for `[dev-dependencies]`
-- Look for: cargo test (native), proptest, quickcheck
-- Identify test organization: inline tests vs `tests/` directory
-
-**Java/Kotlin Ecosystem**:
-- Check `pom.xml` (Maven) or `build.gradle` (Gradle)
-- Look for: JUnit (4/5), TestNG, Spock, Kotest
-- Identify test directory structure: `src/test/java`
-
-**Other Ecosystems**:
-- Ruby: `Gemfile` → RSpec, Minitest
-- C#/.NET: `*.csproj` → xUnit, NUnit, MSTest
-- PHP: `composer.json` → PHPUnit
+Inspect project config files and existing test files to identify:
+- The test framework and runner in use
+- The test execution command
+- Test file naming and directory conventions
 
 ### Phase 2: Pattern Analysis
 
@@ -140,29 +113,6 @@ When tests fail:
 3. **Analyze root cause**: Is it a test issue or implementation bug?
 4. **Suggest fixes**: Provide specific code changes to fix the failure
 5. **Re-run after fixes**: Verify that fixes resolve the failures
-
-## Standalone CLI Usage
-
-This agent can be invoked directly from the command line:
-
-```bash
-# Generate tests for a specific file
-gh copilot agent run tester "Generate tests for src/utils/parser.js"
-
-# Run existing tests and analyze failures
-gh copilot agent run tester "Run the test suite and report results"
-
-# Add missing test coverage
-gh copilot agent run tester "Add tests for error handling in AuthService"
-```
-
-### Common Standalone Commands
-
-- "Generate unit tests for [file/module]"
-- "Add edge case tests for [function/class]"
-- "Run tests and fix failures"
-- "Increase test coverage for [component]"
-- "Generate integration tests for [API endpoint]"
 
 ## Handoff to Reviewer
 

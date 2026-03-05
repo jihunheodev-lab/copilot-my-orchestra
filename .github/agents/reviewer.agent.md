@@ -103,39 +103,14 @@ Structure your review feedback with this exact format:
 
 Before reviewing, **discover the project's quality standards** by analyzing:
 
-1. **Linter/Formatter Configs**: `.eslintrc`, `.prettierrc`, `pyproject.toml`, `editorconfig`, `stylecop.json`
-2. **Coding Standards Docs**: Look for `CONTRIBUTING.md`, `CODE_STANDARDS.md`, `STYLE_GUIDE.md`, `.github/copilot-instructions.md`
+1. **Linter/Formatter Configs**: Check the project root for linter and formatter configuration files
+2. **Coding Standards Docs**: Look for `CONTRIBUTING.md`, `CODE_STANDARDS.md`, `.github/copilot-instructions.md`
 3. **Existing Patterns**: Search for similar functionality in the codebase to identify established patterns
 4. **Test Patterns**: Examine existing tests to understand testing conventions (naming, structure, assertions)
-5. **CI/CD Configuration**: Review `.github/workflows/`, `.gitlab-ci.yml`, `Jenkinsfile` for quality gates
-6. **Dependency Management**: Check `package.json`, `requirements.txt`, `go.mod` for dependency policies
+5. **CI/CD Configuration**: Review workflow files for quality gates
+6. **Dependency Management**: Check project manifest files for dependency policies
 
 **Adapt your review criteria** based on discovered standards. If the project uses specific linting rules, enforce them. If tests follow a particular pattern, validate new tests match it.
-
-## Standalone CLI Usage
-
-To invoke this agent directly via GitHub Copilot CLI:
-
-```bash
-# Start GitHub Copilot CLI
-copilot
-
-# Invoke the reviewer agent
-/agent reviewer
-
-# Provide review context
-Review the changes in PR #123
-Review the implementation in src/services/auth.js
-Review the recent commits on feature/user-authentication branch
-```
-
-**Example Review Request**:
-```
-Review PR #456 focusing on:
-- Security implications of the new authentication flow
-- Test coverage for edge cases
-- Consistency with existing API patterns
-```
 
 ## Iteration Support
 
