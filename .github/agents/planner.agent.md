@@ -44,6 +44,7 @@ Before making any technology-specific recommendations, **dynamically discover th
 - Each step should be atomic and independently verifiable
 - Order steps by dependencies (prerequisites first)
 - Identify which files need to be created, modified, or deleted
+- **Identify parallel opportunities**: mark steps that have no dependencies on each other with `[PARALLEL: Wave N]` (where N is the wave number); group them into the same _wave_ so the Orchestrator can dispatch multiple Implementer agents simultaneously
 
 ### 4. Specify Changes with Precision
 For each step, document:
@@ -85,9 +86,23 @@ Every plan you create MUST follow this structured format:
 **Test Framework**: [Jest/pytest/Go testing/etc.]
 **Test Execution**: [Command to run tests]
 
+## Step Dependency Graph
+
+List explicit dependencies between steps. Steps with no listed dependencies may run in parallel within the same wave.
+
+```
+Step 1 → Step 3
+Step 2 → Step 3
+Step 3 → Step 4
+```
+
+> Steps 1 and 2 have no mutual dependency → they belong to **Wave 1** (parallel).
+> Step 3 depends on both → **Wave 2** (sequential after Wave 1).
+> Step 4 depends on Step 3 → **Wave 3** (sequential).
+
 ## Implementation Steps
 
-### Step 1: [Action Description]
+### Step 1: [Action Description] `[PARALLEL: Wave 1]`
 **Files**:
 - Create: `path/to/new/file.ext`
 - Modify: `path/to/existing/file.ext`
@@ -105,8 +120,8 @@ Every plan you create MUST follow this structured format:
 
 ---
 
-### Step 2: [Action Description]
-[Repeat structure for each step]
+### Step 2: [Action Description] `[PARALLEL: Wave 1]`
+[Repeat structure for each step; label `[SEQUENTIAL]` when the step must wait for a prior step]
 
 ---
 

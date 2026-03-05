@@ -39,6 +39,49 @@ Every type except "Question / investigation" saves a plan file and stops. The pl
 
 Always explain which category was selected and why.
 
+## Parallel Execution Strategy
+
+When tasks contain multiple **independent** work streams, invoke sub-agents in parallel rather than sequentially to reduce total execution time.
+
+### When to Parallelize
+
+Use parallel execution when:
+- A task has 2 or more independent research areas that do not share files or context
+- An implementation plan (produced by Planner) contains steps labelled `[PARALLEL]` in the same wave
+- Test suites for separate, unrelated modules can be generated simultaneously
+
+Do **not** parallelize when:
+- Steps share output files (risk of conflicting writes)
+- A step depends on the output of another step in the same wave
+- The total number of parallel agents would exceed 5 (prefer batching instead)
+
+### Fan-Out Pattern
+
+To dispatch multiple sub-agents in parallel:
+
+1. **Split**: decompose the work into fully independent sub-tasks, each with its own isolated context packet (no shared mutable files).
+2. **Dispatch**: invoke each sub-agent simultaneously, one invocation per sub-task.
+3. **Collect**: wait for all parallel agents to return before proceeding.
+
+### Fan-In Pattern
+
+After all parallel agents complete:
+
+1. Collect all outputs and list the files each agent touched.
+2. Check for **conflicts**: flag any file that was modified by more than one agent.
+3. Merge results into a unified summary.
+4. Use the merged summary as input to the next sequential stage.
+
+**Research-specific deduplication:** When merging parallel Researcher outputs, remove duplicate findings by keeping the most specific/detailed version of overlapping facts; if two findings contradict each other, surface both to the user before planning proceeds.
+
+### Conflict Resolution
+
+If parallel agents produce conflicting changes (same file modified by two agents):
+
+1. Report the conflict to the user with both proposed changes shown side-by-side.
+2. Ask the user to choose one, merge manually, or defer to a fresh Implementer invocation.
+3. Resume the pipeline only after the conflict is resolved.
+
 ## Dynamic Discovery Before Delegation
 
 Before calling any subagent, inspect the repository to build shared context:
@@ -52,10 +95,15 @@ Pass this discovery context into every downstream delegation so worker agents ar
 
 ### Step 1 — Research
 
-Invoke `Researcher` with:
+**Single-area research (default):** Invoke one `Researcher` with:
 - The user request and scope boundaries
 - Discovery findings (tech stack, project structure)
 - Explicit research questions to answer
+
+**Multi-area parallel research:** When a task spans 2 or more clearly distinct investigation areas (e.g., authentication module AND database layer), apply the fan-out pattern:
+1. Split the research scope into non-overlapping areas.
+2. Invoke one `Researcher` per area simultaneously, each with its own scoped context packet.
+3. After all Researchers complete, apply the fan-in pattern: for duplicate findings keep the most specific/detailed version; for contradictory findings surface both to the user before planning proceeds; then merge into a single context packet.
 
 Synthesize research output into a concise context packet: problem statement, constraints, relevant files, recommended direction.
 
@@ -128,21 +176,32 @@ The following steps run in the execution conversation triggered by `@Orchestrato
 
 ### Step 4 — Implement
 
-Invoke `Implementer` with:
+Update `Approval Status: in_progress` in the plan file before invoking any Implementer.
+
+**Sequential implementation (default):** Invoke one `Implementer` with:
 - The full content of `plans/<task-name>-plan.md`
 - Research context (relevant files, architectural patterns, existing conventions)
 - Discovery findings (tech stack, test framework, build commands)
 
-Require minimal, focused changes that integrate seamlessly with existing code.
+**Parallel implementation:** When the plan contains steps labelled `[PARALLEL]` within the same wave:
+1. Parse the plan's Step Dependency Graph to identify each wave.
+2. **Pre-dispatch file-conflict check:** Before invoking any agent in a wave, list the files declared under each step's **Files** section. If two steps in the same wave share a file, move the later step to the next wave rather than attempting parallel execution.
+3. **Wave execution (fan-out):** For each wave, invoke one `Implementer` per step simultaneously. Provide each Implementer only the subset of the plan covering its assigned step, plus the shared research context.
+4. **Wave aggregation (fan-in):** After all Implementers in a wave complete, collect their outputs, verify no file conflicts occurred, and merge the unified summary before proceeding to the next wave.
+5. Repeat for every remaining wave until all plan steps are complete.
 
-Update `Approval Status: in_progress` in the plan file before invoking the Implementer.
+Require minimal, focused changes that integrate seamlessly with existing code.
 
 ### Step 5 — Test
 
-Invoke `Tester` with:
+**Single-module testing (default):** Invoke one `Tester` with:
 - Implementation details and list of changed files
 - Expected behaviors from the plan's acceptance criteria
 - Discovered test framework and execution commands
+
+**Parallel testing:** When implementation touched 2 or more independent modules with no shared test fixtures:
+1. Apply the fan-out pattern: invoke one `Tester` per module simultaneously, each scoped to its module's changed files and acceptance criteria.
+2. Apply the fan-in pattern: aggregate test results; surface any failures clearly before passing to Reviewer.
 
 ### Step 6 — Review
 
@@ -164,10 +223,14 @@ Subagents do not inherit prior thread history. Explicitly forward context at eve
 When subagent invocation is unavailable, guide users through a manual sequence:
 
 1. Run `@Researcher` with the task and codebase scope.
-2. Run `@Planner` with research findings to generate the plan.
+   - If the task covers multiple independent areas, open separate Copilot Chat conversations — one per area — and run `@Researcher` in each simultaneously. Merge findings manually before the next step.
+2. Run `@Planner` with research findings to generate the plan (including the Step Dependency Graph and `[PARALLEL]` markers).
 3. Note the plan file path, start a new conversation, and run `@Orchestrator execute plan: <task-name>`.
-4. Run `@Implementer` with the plan file contents and research findings.
+4. Run `@Implementer` for each implementation wave:
+   - **Sequential steps**: run `@Implementer` one at a time.
+   - **Parallel steps (same wave)**: open one Copilot Chat conversation per step, run `@Implementer` in each simultaneously with its scoped plan slice, then collect and merge outputs before starting the next wave.
 5. Run `@Tester` with the changed files and expected behaviors.
+   - For multiple independent modules, open parallel conversations as in step 4.
 6. Run `@Reviewer` for final review.
 
 At each transition, copy forward decisions, constraints, and evidence to preserve context continuity.
