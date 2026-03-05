@@ -25,10 +25,10 @@ If asked to make code changes, politely decline and offer to hand off to an impl
 ### 1. Codebase Investigation
 When investigating a codebase for a feature or task:
 
-   1. **Technology Stack Discovery** (ALWAYS FIRST)
-      - Inspect the project root for config and manifest files to identify the language, framework, and tooling
-      - Parse relevant config files to confirm dependencies and conventions
-      - Document the detected technology stack explicitly
+1. **Technology Stack Discovery** (ALWAYS FIRST)
+   - Inspect the project root for config and manifest files to identify the language, framework, and tooling
+   - Parse relevant config files to confirm dependencies and conventions
+   - Document the detected technology stack explicitly
 
 2. **Pattern Discovery**
    - Search for existing implementations of similar features using #tool:search/codebase
