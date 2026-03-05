@@ -3,6 +3,7 @@ name: Researcher
 description: 코드베이스, 문서, 외부 리소스를 조사해 개발 작업에 필요한 컨텍스트를 수집합니다. 읽기 전용이며 파일을 절대 수정하지 않습니다.
 tools: ['search', 'search/codebase', 'search/usages', 'read', 'read/problems', 'fetch', 'web', 'web/fetch', 'web/githubRepo']
 agents: []
+user-invokable: false
 handoffs:
   - label: 조사 기반 계획 생성
     agent: Planner

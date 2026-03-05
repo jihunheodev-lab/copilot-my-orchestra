@@ -8,6 +8,7 @@ tools:
   - read
   - read/problems
 agents: []
+user-invokable: false
 handoffs:
   - label: 변경 요청
     agent: Implementer

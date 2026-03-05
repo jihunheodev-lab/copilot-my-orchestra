@@ -11,6 +11,7 @@ tools:
   - execute
   - fetch
 agents: []
+user-invokable: false
 handoffs:
   - label: 테스트 생성
     agent: Tester

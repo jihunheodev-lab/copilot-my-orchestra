@@ -10,6 +10,7 @@ tools:
   - read/terminalLastCommand
   - execute
 agents: []
+user-invokable: false
 handoffs:
   - label: 변경 사항 리뷰
     agent: Reviewer

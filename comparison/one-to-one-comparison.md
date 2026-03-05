@@ -23,8 +23,8 @@
 ### Key Differences
 - Baseline has 6-role model including dedicated Researcher and Tester.
 - `copilot-orchestra` is leaner (Conductor + 3 subagents), with explicit commit pause rhythm.
-- Baseline emphasizes dynamic tech-stack discovery more explicitly.
-- `copilot-orchestra` is stronger in lightweight phase-document routine (`plans/*`).
+- Baseline enforces read-only boundaries at the toolset level (YAML `tools` field); `copilot-orchestra` relies on instructions only.
+- Baseline uses a two-conversation planning/execution split via `execute plan:`; `copilot-orchestra` pauses at commit points within one conversation.
 
 ### What Baseline Can Borrow
 - Lightweight mandatory pause points for user approval.
@@ -32,7 +32,8 @@
 
 ### What Baseline Should Keep
 - Richer role granularity (Researcher/Tester separation).
-- Dynamic discovery-first principle.
+- Dynamic discovery-first principle with precedence-ordered file list.
+- Planning-execution conversation isolation.
 
 ---
 
@@ -43,9 +44,10 @@
 - TDD-first implementation flow and review gate pattern.
 
 ### Key Differences
-- `Atlas` introduces stronger context-conservation strategy and explicit parallel subagent playbook.
-- `Atlas` adds specialist roles (Explorer, Frontend-Engineer) and a separate planner-orchestrator (`Prometheus`).
-- Baseline is simpler and easier to reason about; Atlas is more scalable for large scope tasks.
+- `Atlas` introduces stronger context-conservation strategy and explicit parallel subagent playbook (up to 10 concurrent).
+- `Atlas` adds specialist roles (Explorer, Frontend-Engineer) and a separate autonomous planner (`Prometheus`).
+- Baseline's planning-execution split is comparable to Atlas's per-phase commit pauses, but with cleaner conversation isolation.
+- Baseline is simpler to reason about; Atlas is more scalable for large-scope tasks.
 
 ### What Baseline Can Borrow
 - Explicit parallel research policy (Explorer-like pre-mapping).
@@ -116,9 +118,9 @@
   - `.github/agents/CONTRACT.md`
   - `.github/agents/WORKFLOW.md`
   - `.github/agents/DISPATCH-REFERENCE.md`
-- Enforces JSON-only inter-agent contracts, strict gate persistence, retry budgets, and durable decision records.
+- Enforces JSON-only inter-agent contracts, strict gate persistence, retry budgets (max 3 per loop type), and durable decision records.
 - Maintains session artifacts in `.agents-work/<session>/...` as system-of-record.
-- Baseline does not yet enforce this level of machine-verifiable protocol.
+- Baseline does not yet enforce machine-verifiable protocol — agents communicate in natural language.
 
 ### What Baseline Can Borrow
 - Minimal `CONTRACT.md` with input/output schema.
@@ -166,8 +168,8 @@
 - DAG and artifact-driven execution at scale: `gem-team`
 
 ### Practical Upgrade Set for Baseline (Priority)
-1. Add minimal session persistence (`.agents-work/<session>/status.json`, `tasks.yaml`, `report.md`).
-2. Add explicit gate and retry-loop semantics (approval, review strategy optional, fix loops).
+1. Add minimal session persistence (`.agents-work/<session>/status.json`, `tasks.yaml`, `report.md`) for long-running tasks.
+2. Add explicit gate and retry-loop semantics (fix loops with max retry count).
 3. Add one optional specialist role (`Designer` or `Frontend-Engineer`).
 4. Add optional advanced mode for parallel waves (DAG) only when task graph demands it.
 
