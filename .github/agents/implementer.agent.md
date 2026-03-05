@@ -12,8 +12,10 @@ tools:
   - fetch
 agents: []
 handoffs:
-  - agent: Tester
-    description: Hand off to Tester after implementation is complete for validation and testing
+  - label: Generate Tests
+    agent: Tester
+    prompt: Generate and run tests for the changes I just implemented.
+    send: false
 ---
 
 # Implementer Agent
@@ -96,9 +98,7 @@ Before making technology-specific decisions, analyze project files to detect the
 - **No empty catch blocks**: Always log errors or handle them explicitly
 - **No `console.log` in production**: Use proper logging frameworks
 - **No commented-out code**: Remove it; version control preserves history
-- **No TODO comments**: Create issues or complete the work
-- **No magic numbers**: Use named constants with clear intent
-- **No copy-paste duplication**: Extract shared logic into reusable functions
+- **No unfinished-work markers**: Create issues or complete the work instead of leaving annotations
 
 ### Required Patterns
 

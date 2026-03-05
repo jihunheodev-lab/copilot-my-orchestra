@@ -10,9 +10,9 @@ tools:
   - fetch
 agents: []
 handoffs:
-  - label: Execute Implementation Plan
+  - label: Start Implementation
     agent: Implementer
-    prompt: Execute the implementation plan I just created. Follow the steps, acceptance criteria, and risk mitigations outlined in the plan.
+    prompt: Implement the changes according to this plan.
     send: false
 ---
 

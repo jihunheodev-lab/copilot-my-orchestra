@@ -69,7 +69,7 @@ If subagent invocation is not supported in your environment, follow this manual 
 |-------------|-------------------|---------------------|-----------------|
 | VS Code Insiders | Supported | Supported | Supported |
 | VS Code Stable | Supported | Partial | Supported |
-| GitHub.com | Supported | Supported | Supported |
+| GitHub.com | Supported | Not Supported | Not Supported |
 | Copilot CLI | Supported | Not Supported | Not Supported |
 
 ## Pipeline Workflow

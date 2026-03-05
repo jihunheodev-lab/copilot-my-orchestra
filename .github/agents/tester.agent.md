@@ -11,8 +11,10 @@ tools:
   - execute
 agents: []
 handoffs:
-  - agent: Reviewer
-    description: Hand off completed tests for code review and validation
+  - label: Review Changes
+    agent: Reviewer
+    prompt: Review the implemented changes and test results for quality and correctness.
+    send: false
 ---
 
 # Tester Agent

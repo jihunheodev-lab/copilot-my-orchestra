@@ -4,9 +4,9 @@ description: Investigates the codebase, documentation, and external resources to
 tools: ['search', 'search/codebase', 'search/usages', 'read', 'read/problems', 'fetch', 'web', 'web/fetch', 'web/githubRepo']
 agents: []
 handoffs:
-  - label: Create Plan
+  - label: Create Plan from Research
     agent: Planner
-    prompt: Based on the research findings above, create a detailed implementation plan.
+    prompt: Based on these research findings, create a detailed implementation plan.
     send: false
 ---
 

@@ -9,10 +9,14 @@ tools:
   - read/problems
 agents: []
 handoffs:
-  - agent: Implementer
-    description: Request Changes → Implementer
-  - agent: Orchestrator
-    description: Back to Orchestrator → Orchestrator
+  - label: Request Changes
+    agent: Implementer
+    prompt: Please address the review feedback above.
+    send: false
+  - label: Back to Orchestrator
+    agent: Orchestrator
+    prompt: Review is complete. Here are the findings.
+    send: false
 ---
 
 # Reviewer Agent
