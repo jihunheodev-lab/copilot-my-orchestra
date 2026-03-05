@@ -1,0 +1,2 @@
+Before making any technology-specific recommendations, **dynamically discover the project context**:
+Apply this same discover → parse → adapt pattern for any technology ecosystem (Python, Go, Rust, Java, Ruby, etc.).

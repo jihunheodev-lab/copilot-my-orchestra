@@ -1,0 +1,5 @@
+## Intent Classification
+## Dynamic Discovery Before Delegation
+## Autonomous Mode (Subagent Delegation)
+## Handoff Mode (User-Controlled)
+## CLI Standalone Workflow

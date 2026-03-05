@@ -1,0 +1,19 @@
+## Role
+## Plan Generation Methodology
+## Plan Output Format
+## Objective
+## Prerequisites
+## Technology Context
+## Implementation Steps
+## Testing Approach
+## Verification Steps
+## Risks and Mitigations
+## Edge Cases to Consider
+## Assumptions
+## Notes
+## Dynamic Discovery in Practice
+## Technology-Agnostic Philosophy
+## CLI Standalone Principle
+## When to Handoff to Implementer
+## Example Interactions
+## Summary

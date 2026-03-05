@@ -1,0 +1,1 @@
+3. Invoke `Planner` with the synthesized context (problem statement, constraints, relevant files, recommended direction), discovery findings (detected tech stack, test framework, build commands), and scope boundaries; require a step-by-step implementation plan with acceptance criteria.

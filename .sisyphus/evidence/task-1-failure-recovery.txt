@@ -1,0 +1,2 @@
+1
+If a subagent returns incomplete or failed results, retry the stage once with the same context plus a summary of what went wrong. If the retry also fails, report the failure to the user with a summary of what was attempted and ask how to proceed.
