@@ -1,6 +1,6 @@
 # Copilot Multi-Agent Orchestration System
 
-A multi-agent orchestration pack for GitHub Copilot. The Orchestrator delegates work through specialized subagents across an Explore → Plan → Implement → Test → Review pipeline, while planning and execution stay split across separate conversations to prevent context bleed.
+A multi-agent orchestration pack for GitHub Copilot. The Orchestrator delegates work through specialized subagents across an Explore → Plan → Implement/Design → Test → Review pipeline, while planning and execution stay split across separate conversations to prevent context bleed.
 
 For bug fixes and quick fixes, the Orchestrator can skip `Planner` and write the lightweight plan directly after Explore and clarification.
 
@@ -22,7 +22,10 @@ User Request ──> Orchestrator (GPT-5.4)
                       │
        @Orchestrator execute plan: ...
                       │
-           Implementer (GPT-5.4)
+          ┌───────────┴───────────┐
+   Implementer (GPT-5.4)   Designer (Gemini 3.1 Pro)
+   logic / data / APIs      UI/UX / styling / a11y
+          └───────────┬───────────┘
                       │
               Tester (GPT-5.4)
                       │
@@ -56,7 +59,7 @@ The Orchestrator:
 @Orchestrator execute plan: <task-name>
 ```
 
-**Execute** — start a new conversation and paste the command above. The Orchestrator resumes from the plan file and delegates Implement → Test → Review.
+**Execute** — start a new conversation and paste the command above. The Orchestrator resumes from the plan file and delegates Implement/Design → Test → Review. Logic and UI/UX tasks can run in parallel when they touch different files.
 
 ### Without subagent support
 
