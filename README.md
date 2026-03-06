@@ -1,20 +1,28 @@
 # Copilot Multi-Agent Orchestration System
 
-A multi-agent system for GitHub Copilot. Six specialized agents coordinate code generation through a Research → Plan → Implement → Test → Review pipeline, with planning and execution split across separate conversations to prevent context bleed. The Orchestrator delegates each worker stage through subagents via the `agent` / `runSubagent` capability.
+A multi-agent orchestration pack for GitHub Copilot. The Orchestrator delegates work through specialized subagents across an Explore → Plan → Implement → Test → Review pipeline, while planning and execution stay split across separate conversations to prevent context bleed.
 
 ```text
 User Request ──> Orchestrator (Claude Sonnet 4.6)
                       │
-        ┌─────────────┼─────────────┐
-        v             v             v
-   Researcher    Planner       Implementer
-   (Gemini 3.1   (GPT-5.2)    (GPT-5.3-Codex)
-    Pro)              │             │
-        └─────────────┘    ┌───────┤
-                           v       v
-                        Tester   Reviewer
-                     (GPT-5.3   (GPT-5.2)
-                      -Codex)
+              Planning conversation
+                      │
+               Explore (×N, parallel)
+               (Haiku / Gemini Flash)
+                      │
+               Planner (GPT-5.2)
+                      │
+         plans/<task-name>-plan.md
+                      │
+             New conversation starts
+                      │
+       @Orchestrator execute plan: ...
+                      │
+           Implementer (GPT-5.3-Codex)
+                      │
+              Tester (GPT-5.3-Codex)
+                      │
+              Reviewer (GPT-5.2)
 ```
 
 Each agent uses a model optimized for its role. Change the `model` field in `.github/agents/*.agent.md` to use a different model.
@@ -32,19 +40,21 @@ Each agent uses a model optimized for its role. Change the `model` field in `.gi
 @Orchestrator <your request>
 ```
 
-The Orchestrator delegates Research → Plan through subagents, saves the plan to `plans/`, and outputs:
+The Orchestrator:
+1. Classifies the request
+2. Runs `Explore` subagents (in parallel for multi-area tasks)
+3. Delegates to `Planner` which saves `plans/<task-name>-plan.md`
+4. Outputs:
 
 ```
 @Orchestrator execute plan: <task-name>
 ```
 
-**Execute** — start a new conversation and paste the command above. The Orchestrator delegates `runSubagent` calls so each plan step goes through Implementer → Reviewer, then runs Tester for final verification.
+**Execute** — start a new conversation and paste the command above. The Orchestrator resumes from the plan file and delegates Implement → Test → Review.
 
 ### Without subagent support
 
-If your environment does not support subagent delegation but still exposes direct agent invocation, invoke agents manually in order:
-
-`@Researcher` → `@Planner` → `@Implementer` → `@Tester` → `@Reviewer`
+All worker agents are `user-invocable: false`. The automated workflow requires a VS Code Copilot environment with agent delegation enabled. If your environment exposes worker agents for direct invocation despite the flag, invoke them manually and carry outputs forward at each step.
 
 ## Customization
 

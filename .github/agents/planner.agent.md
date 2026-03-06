@@ -10,8 +10,7 @@ tools:
   - fetch
   - editFiles
   - vscode/askQuestions
-  - agent
-agents: ['Explore', 'Researcher']
+agents: []
 user-invocable: false
 model: GPT-5.2 (copilot)
 ---
@@ -30,12 +29,7 @@ Cycle through these phases based on context. This is **iterative, not linear**. 
 
 ### 1. Discovery
 
-Use Researcher findings already provided by the Orchestrator as the primary source. If critical context is missing or the task spans multiple independent areas (e.g., frontend + backend, different modules), spawn **2–3 Explore subagents in parallel** — one per area — to fill the gaps quickly.
-
-Gather:
-- Analogous existing features to use as implementation templates
-- Potential blockers or ambiguities
-- Tech stack, test framework, build commands — discovered from actual project files, never assumed
+All codebase exploration has already been done by the Orchestrator (via Explore). Use the context provided in the prompt as your sole source of discovery. Only use `search` or `read` tools directly if a specific detail is missing and critical to complete a plan step — keep this minimal.
 
 ### 2. Alignment
 
