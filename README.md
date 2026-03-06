@@ -1,6 +1,6 @@
 # Copilot Multi-Agent Orchestration System
 
-A multi-agent system for GitHub Copilot. Six specialized agents coordinate code generation through a Research → Plan → Implement → Test → Review pipeline, with planning and execution split across separate conversations to prevent context bleed.
+A multi-agent system for GitHub Copilot. Six specialized agents coordinate code generation through a Research → Plan → Implement → Test → Review pipeline, with planning and execution split across separate conversations to prevent context bleed. The Orchestrator delegates each worker stage through subagents via the `agent` / `runSubagent` capability.
 
 ```text
 User Request ──> Orchestrator (Claude Sonnet 4.6)
@@ -32,17 +32,17 @@ Each agent uses a model optimized for its role. Change the `model` field in `.gi
 @Orchestrator <your request>
 ```
 
-The Orchestrator runs Research → Plan, saves the plan to `plans/`, and outputs:
+The Orchestrator delegates Research → Plan through subagents, saves the plan to `plans/`, and outputs:
 
 ```
 @Orchestrator execute plan: <task-name>
 ```
 
-**Execute** — start a new conversation and paste the command above. The Orchestrator runs Implement → Test → Review autonomously.
+**Execute** — start a new conversation and paste the command above. The Orchestrator delegates `runSubagent` calls so each plan step goes through Implementer → Reviewer, then runs Tester for final verification.
 
 ### Without subagent support
 
-If your environment doesn't support subagent delegation, invoke agents manually in order:
+If your environment does not support subagent delegation but still exposes direct agent invocation, invoke agents manually in order:
 
 `@Researcher` → `@Planner` → `@Implementer` → `@Tester` → `@Reviewer`
 
