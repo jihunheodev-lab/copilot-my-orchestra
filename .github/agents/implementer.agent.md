@@ -26,7 +26,7 @@ Write production-quality code following established codebase patterns and conven
 ### 1. Read the Plan
 
 Before writing any code:
-- Read the complete implementation plan provided by the Planner agent
+- Read the complete implementation plan provided for the task, whether it was written by the Planner agent or directly by the Orchestrator
 - Identify all files that need modification or creation
 - Understand the scope and boundaries of changes
 - Note any dependencies or prerequisites

@@ -2,6 +2,8 @@
 
 A multi-agent orchestration pack for GitHub Copilot. The Orchestrator delegates work through specialized subagents across an Explore → Plan → Implement → Test → Review pipeline, while planning and execution stay split across separate conversations to prevent context bleed.
 
+For bug fixes and quick fixes, the Orchestrator can skip `Planner` and write the lightweight plan directly after Explore and clarification.
+
 ```text
 User Request ──> Orchestrator (GPT-5.4)
                       │
@@ -9,8 +11,10 @@ User Request ──> Orchestrator (GPT-5.4)
                       │
                Explore (×N, parallel)
                (Haiku / Gemini Flash)
-                      │
-               Planner (GPT-5.4)
+                         │
+         Clarify at top level if needed
+                         │
+         Planner (GPT-5.4, optional)
                       │
          plans/<task-name>-plan.md
                       │
@@ -43,8 +47,10 @@ Each agent uses a model optimized for its role. Change the `model` field in `.gi
 The Orchestrator:
 1. Classifies the request
 2. Runs `Explore` subagents (in parallel for multi-area tasks)
-3. Delegates to `Planner` which saves `plans/<task-name>-plan.md`
-4. Outputs:
+3. Resolves clarifying questions at the top level when needed
+4. For new features and refactorings, delegates to `Planner` which saves `plans/<task-name>-plan.md`
+5. For bug fixes and quick fixes, writes the lightweight plan directly and skips `Planner`
+6. Outputs:
 
 ```
 @Orchestrator execute plan: <task-name>
@@ -54,7 +60,7 @@ The Orchestrator:
 
 ### Without subagent support
 
-All worker agents are `user-invocable: false`. The automated workflow requires a VS Code Copilot environment with agent delegation enabled. If your environment exposes worker agents for direct invocation despite the flag, invoke them manually and carry outputs forward at each step.
+All worker agents are `user-invocable: false`. The automated workflow requires a VS Code Copilot environment with agent delegation enabled. If your environment exposes worker agents for direct invocation despite the flag, keep clarification in the top-level Orchestrator conversation, skip `Planner` for bug fixes and quick fixes, and carry outputs forward at each step.
 
 ## Customization
 
