@@ -3,14 +3,14 @@
 A multi-agent orchestration pack for GitHub Copilot. The Orchestrator delegates work through specialized subagents across an Explore → Plan → Implement → Test → Review pipeline, while planning and execution stay split across separate conversations to prevent context bleed.
 
 ```text
-User Request ──> Orchestrator (Claude Sonnet 4.6)
+User Request ──> Orchestrator (GPT-5.4)
                       │
               Planning conversation
                       │
                Explore (×N, parallel)
                (Haiku / Gemini Flash)
                       │
-               Planner (GPT-5.2)
+               Planner (GPT-5.4)
                       │
          plans/<task-name>-plan.md
                       │
@@ -18,11 +18,11 @@ User Request ──> Orchestrator (Claude Sonnet 4.6)
                       │
        @Orchestrator execute plan: ...
                       │
-           Implementer (GPT-5.3-Codex)
+           Implementer (GPT-5.4)
                       │
-              Tester (GPT-5.3-Codex)
+              Tester (GPT-5.4)
                       │
-              Reviewer (GPT-5.2)
+              Reviewer (GPT-5.4)
 ```
 
 Each agent uses a model optimized for its role. Change the `model` field in `.github/agents/*.agent.md` to use a different model.

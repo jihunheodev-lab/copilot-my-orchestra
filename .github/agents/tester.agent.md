@@ -11,7 +11,7 @@ tools:
   - execute
 agents: []
 user-invocable: false
-model: GPT-5.3-Codex (copilot)
+model: GPT-5.4 (copilot)
 ---
 
 # Tester Agent

@@ -12,7 +12,7 @@ tools:
   - vscode/askQuestions
 agents: []
 user-invocable: false
-model: GPT-5.2 (copilot)
+model: GPT-5.4 (copilot)
 ---
 
 # Planner Agent

@@ -1,9 +1,19 @@
 ---
 name: Orchestrator
 description: Single entry point for all development tasks. Coordinates an Explore → Plan → Implement → Test → Review pipeline. Planning and execution run in separate conversations for clean context isolation.
-tools: ['agent', 'search', 'read', 'fetch', 'editFiles']
-agents: ['Explore', 'Planner', 'Implementer', 'Tester', 'Reviewer']
-model: Claude Sonnet 4.6 (copilot)
+tools:
+  - agent
+  - search
+  - read
+  - fetch
+  - editFiles
+agents:
+  - Explore
+  - Planner
+  - Implementer
+  - Tester
+  - Reviewer
+model: GPT-5.4 (copilot)
 ---
 
 # Orchestrator Role
